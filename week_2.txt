@@ -1,0 +1,62 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 2
+
+2.1.1   a)  add  f, g, h                    b)  addi h, h, 5
+            add  f, f, i                        add  f, g, h
+            add  f, f, j
+
+2.2.1   a)  add  f, f, f                    b)  addi j, j, 2
+            add  f, f, i                        add  f, g, j
+
+2.2.4   a)  f = f + h                       b)  f = 0 - f + 1
+
+2.3.1   a)  add  f, f, g                    b)  addi f, f, 5
+            add  f, f, h                        sub  f, g, f
+            add  f, f, i
+            addi j, j, 2
+            add  f, f, j
+
+2.3.4   a)  f = -g + h                      b)  f = g - (f + 1)
+
+2.4.1   a)  lw   $s0, 16($s7)               b)  lw   $t0, 16($s7)   # B[4]
+            add  $s0, $s0, $s1                  sll  $t0, $t0, 2    # B[4] * 4
+            add  $s0, $s0, $s2                  add  $t0, $t0, $s6  # A + B[4]
+                                                lw   $t1, 0($t0)    # A[B[4]]
+                                                sub  $s0, $s1, $t1  # subtrai
+
+2.4.4   a)  f = f + g + h + i + j           b)  f = A[1]
+
+2.5.4   a)  0x12345678 = 1*16^7 + 2*16^6 + 3*16^5 + 4*16^4 + 5*16^3 + 6*16^2
+                        + 7*16^1 + 8*16^0 = 305419896
+
+        b)  0xbeadf00d = 11*16^7 + 14*16^6 + 10*16^5 + 13*16^4 + 15*16^3
+                        + 13*16^0 = 3199070221
+
+2.5.5   a)               Big-    Little-     b)              Big-    Little-
+            Endereço    endian   endian         Endereço    endian   endian
+                0         12       78               0         be       0d
+                4         34       56               4         ad       f0
+                8         56       34               8         f0       ad
+               12         78       12              12         0d       be
+
+2.11.5  a)  opcode    rs     rt     rd   shamt   funct
+            000000  00001  00010  00011  00000  100000      add $v1, $at, $v0
+
+        b)  opcode    rs     rt        const
+            101011  10000  00101  0000000000000100          sw $a1, 4($s0)
+
+2.12.1  a)  log_2 8 = 3
+            opcode    rs      rt      rd     shamt   funct
+            6 bits  3 bits  3 bits  3 bits  5 bits  6 bits  Número de bits: 26
+
+        b)  Sem mudança, pois instruções do tipo R não utilizam constantes.
+
+2.12.2  a)  log_2 8 = 3
+            opcode    rs      rt     const
+            6 bits  3 bits  3 bits  16 bits                 Número de bits: 28
+
+        b)  opcode    rs      rt     const
+            6 bits  5 bits  5 bits  10 bits                 Número de bits: 26
