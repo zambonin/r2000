@@ -1,0 +1,72 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 3
+
+2.15.2  a)  nor $t1, $t3, $t3               b)  xor $t1, $t2, $t3
+            and $t1, $t1, $t2                   nor $t1, $t1, $t1
+
+2.15.5  A = $t0, B = $t1, C = $t2
+        a)  lw  t3, 0($t2)                  b)          beq $t0, $zero, ELSE
+            and $t0, $t1, $t3                           add $t0, $t1, $zero
+                                                        j   END
+                                                ELSE:
+                                                        lw  $t0, 0($t2)
+                                                END:    ...
+
+2.16.4  a)  2                               b)  2
+
+2.17.3  a)  ABS:                            b)  slt $t1, $t3, $t2
+                    sub $t2, $zero, $t3
+                    slt $t1, $t2, $t3
+                    beq $t1, $zero, DONE
+                    add $t2, $zero, $t3
+            DONE:   ...
+
+2.19.1  a)  COMPARE:
+                    addi $sp, $sp, -4       # aloca espaço na pilha
+                    sw   $ra, 0($sp)        # guarda o endereço de retorno
+                    jal  SUB                # pula e pega o valor de SUB
+                    addi $t1, $zero, 1      # cria o valor de retorno 1
+                    beq  $v0, $zero, EXIT   # se subtração igual a zero
+                    slt  $t2, $zero, $v0    # ou maior do que zero
+                    bne  $t2, $zero, EXIT   # ou seja, diferente de zero
+                    add  $t1, $zero, $zero  # cria o valor de retorno 0
+            EXIT:
+                    add  $v0, $t1, $zero    # cria o valor de retorno final
+                    lw   $ra, 0($sp)        # carrega o endereço de retorno
+                    addi $sp, $sp, 4        # desaloca espaço na pilha
+                    jr   $ra                # retorna valor final
+            SUB:
+                    sub  $v0, $a0, $a1      # subtrai os argumentos
+                    jr   $ra                # retorna valor da subtração
+
+2.19.2  a)  COMPARE:
+                    addi $sp, $sp, -4
+                    sw   $ra, 0($sp)
+                    sub  $t0, $a0, $a1
+                    addi $t1, $zero, 1
+                    beq  $v0, $zero, EXIT
+                    slt  $t2, $zero, $v0
+                    bne  $t2, $zero, EXIT
+                    add  $t1, $zero, $zero
+            EXIT:
+                    add  $v0, $t1, $zero
+                    lw   $ra, 0($sp)
+                    addi $sp, $sp, 4
+                    jr   $ra
+
+2.19.4  a)  F:
+                    addi $sp, $sp, -8       # aloça espaço na pilha
+                    sw   $ra, 4($sp)        # guarda o endereço de retorno
+                    sw   $s0, 0($sp)        # guarda o reg. temp. salvo
+                    move $s0, $a2           # move último arg. para temp. salvo
+                    jal  FUNC               # pula para FUNC
+                    move $a0, $v0           # move o retorno para 1º arg.
+                    move $a1, $s0           # move o valor salvo p/ último arg.
+                    jal  FUNC               # pula para FUNC
+                    lw   $ra, 4($sp)        # carrega o endereço de retorno
+                    lw   $s0, 0($sp)        # carrega o reg. temp. salvo
+                    addi $sp, $sp, 8        # desaloca espaço na pilha
+                    jr   $ra                # retorna valor final
