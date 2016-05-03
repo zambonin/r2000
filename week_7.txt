@@ -1,0 +1,76 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 7
+
+2.21.1  a)  main:   $sp contém o conteúdo do registrador $ra,
+                    endereço 0x7ffffff8
+            leaf:   $sp contém o conteúdo do registrador $ra
+                    (para voltar ao main), endereço 0x7ffffff4
+
+        b)  main:   $sp contém o conteúdo do registrador $ra,
+                    endereço 0x7ffffff8
+            leaf:   $sp contém o conteúdo do registrador $ra
+                    (para voltar ao main), endereço 0x7ffffff4
+
+            my_global: conteúdo 100 no endereço 0x10008000
+
+2.21.2  a)  MAIN:                           b)  MAIN:
+                    addi $sp, $sp, -4                   addi $sp, $sp, -4
+                    sw   $ra, ($sp)                     sw   $ra, ($sp)
+                    addi $a0, $zero, 1                  addi $a0, $zero, 10
+                    jal  LEAF                           addi $t0, $zero, 20
+            LEAF:                                       addi $s0, $zero, 100
+                    addi $sp, $sp, -8                   lw   $a1, ($s0)
+                    sw   $ra, 4($sp)                    jal  FUNC
+                    sw   $s0, ($sp)                     lw   $ra, ($sp)
+                    addi $s0, $a0, 1                    addi $sp, $sp, 4
+                    slti $t2, 5, $a9                    jr   $ra
+                    bne  $t2, $zero, DONE       FUNC:
+                    add  $a0, $s0, $zero                sub  $v0, $a0, $a1
+                    jal  LEAF                           jr   $ra
+            DONE:
+                    add  $v0, $s0, $zero
+                    lw   $s0, ($sp)
+                    lw   $ra, 4($sp)
+                    addi $sp, $sp, 8
+                    jr   $ra
+
+2.30.1  a)  add  $t1, $zero, $t2            b)  add  $t0, $zero, small
+                                                beq  $t1, $t0, LOOP
+                                                (caso fosse um número maior,
+                                                lui+ori seriam necessários)
+
+2.31.1  a)          text size:  0x440
+                    data size:  0x90
+
+            seg.    endereço    instrução
+            texto
+                    0x400000    lw   $a0, 0x8000($gp)
+                    0x400004    jal  0x400140
+                            ...
+                    0x400140    sw   $a1, 0x8040($gp)
+                    0x400144    jal  0x400000
+
+            seg.    0x10000000  (X)
+            data            ...
+                    0x10000040  (Y)
+
+        b)          text size:  0x440
+                    data size:  0x90
+
+            seg.    endereço    instrução
+            texto
+                    0x400000    lui  $at, 0x1000
+                    0x400004    ori  $a0, $at, 0
+                    0x400008    jal  0x400140
+                            ...
+                    0x400140    sw   $a0, 8040($gp)
+                    0x400144    jmp  0x4002c0
+                            ...
+                    0x4002c0    jr   $ra
+
+            seg.    0x10000000  (X)
+            data            ...
+                    0x10000040  (Y)
