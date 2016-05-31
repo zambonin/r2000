@@ -1,0 +1,119 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 9
+
+4.12.1  a)  sem pipeline:   1650ps
+            com pipeline:   500ps
+
+4.12.2  a)  sem pipeline:   1650ps
+            com pipeline:   2500ps
+
+4.12.3  a)  o estágio MEM; o maior estágio agora seria de 400ps
+
+4.13.2  a)  lw  $1, 40($6)                  b)  lw  $5, -16($5)
+            add $6, $2, $2                      nop
+            nop                                 nop
+            sw  $6, 50($1)                      sw  $5, -16($5)
+                                                add $5, $5, $5
+            (hazard de dados)                   (hazard de dados)
+
+4.13.3  a)  lw  $1, 40($6)                  b)  lw  $5, -16($5)
+            add $6, $2, $2                      nop
+            sw  $6, 50($1)                      sw  $5, -16($5)
+                                                add $5, $5, $5
+                                                (hazard de dados)
+
+4.13.4      sem forwarding      com forwarding      aumento de velocidade
+
+        a)  (7 + 1) * 300       7 * 400
+            = 2400ps            = 2800ps            2400 / 2800 = 0.86
+
+        b)  (7 + 2) * 200       (7 + 1) * 250
+            = 1800ps            = 2000ps            1800 / 2000 = 0.90
+
+4.13.5      mesmo código de 4.13.2
+
+4.13.6      sem forwarding      com ULA/ULA         aumento de velocidade
+
+        a)  (7 + 1) * 300       (7 + 1) * 360
+            = 2400ps            = 2880ps            2400 / 2880 = 0.83
+
+        b)  (7 + 2) * 200       (7 + 2) * 220
+            = 1800ps            = 1980ps            1800 / 1980 = 0.91
+
+4.14.1      O hazard deve ser resolvido modificado o hardware; nops não
+            resolveriam, pois devem ser buscados como quaisquer outras
+            instruções, não prevenindo o hazard estrutural.
+
+        a)  IF  ID  EX  ME  WB                                  lw  $1, 40($6)
+                IF  ID  EX  ME  WB                              beq $2, $0, L
+                    IF  ID  EX  ME  WB                      L:  add $2, $3, $4
+                        STALL
+                            IF  ID  EX  ME  WB                  sw  $3, 50($4)
+
+            9 ciclos de execução
+
+        b)  IF  ID  EX  ME  WB                                  lw  $5, -16($5)
+                IF  ID  EX  ME  WB                              sw  $4, -16($4)
+                    IF  ID  EX  ME  WB                          lw  $3, -20($4)
+                        STALL
+                            STALL
+                                STALL
+                                    IF  ID  EX  ME  WB          beq $2, $0, L
+                                        IF  ID  EX  ME  WB      add $5, $1, $4
+
+            12 ciclos de execução
+
+4.14.2  a)  IF  ID  XM  WB
+                IF  ID  XM  WB
+                    IF  ID  XM  WB
+                        IF  ID  XM  WB
+
+            8 ciclos de execução; 9/7 = 1.29x de aumento de velocidade
+
+        b)  IF  ID  XM  WB
+                IF  ID  XM  WB
+                    IF  ID  XM  WB
+                        IF  ID  XM  WB
+
+            7 ciclos de execução; 12/8 = 1.33x de aumento de velocidade
+
+4.14.3  a)  10 ciclos (EX) / 9 ciclos (ID) = 1.11x
+
+        b)  11 ciclos (EX) / 10 ciclos (ID) = 1.1x
+
+4.14.4  a)  (9 * 130) / (7 * 150) = 1.11x
+
+        b)  (12 * 220) / (8 * 240) = 1.375x
+
+4.14.5  a)  (10 * 130) / (9 * 180) = 0.8x
+
+        b)  (11 * 220) / (10 * 220) = 1.1x
+
+4.14.6      A mudança adiciona um stall em cada desvio condicional.
+
+        a)  10 / 11 = 0.91x                 b)  11 / 12 = 0.92x
+
+4.16.4  a)  2:  add $5, $5, $8      WB
+            2:  add $6, $6, $8      ME  WB
+            2:  sw  $1, 20($5)      EX  ME  WB
+            2:  beq $1, $0, Loop    IF  EX  ME  WB
+            3:  lw  $1, 40($6)      IF  ID  EX  ME  WB
+            3:  add $5, $5, $8          IF  ID  EX  ME
+            3:  add $6, $6, $8              IF  ID  EX
+            3:  sw  $1, 20($5)                  IF  ID
+            3:  lw  $1, $0, Loop                    IF
+
+        b)  2:  sw  $0, 0($1)       WB
+            2:  sw  $0, 4($1)       ME  WB
+            2:  add $2, $2, $4      EX  ME  WB
+            2:  beq $2, $0, Loop    IF  EX  ME  WB
+            3:  add $1, $2, $3      IF  ID  EX  ME  WB
+            3:  sw  $0, 0($1)           IF  ID  EX  ME
+            3:  sw  $0, 4($1)               IF  ID  EX
+            3:  add $2, $2, $4                  IF  ID
+            3:  lw  $2, $0, Loop                    IF
+
+4.16.5  a)  20%                             b)  40%

@@ -1,0 +1,19 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 10
+
+4.29.4  a)  Loop:   lw   $10, 40($6)        b)  Loop:   add  $1, $2, $3
+                    lw   $1, 44($6)                     addi $2, $2, 8
+                    addi $6, $6, 8                      sw   $0, -8($1)
+                    addi $5, $5, -8                     sw   $0, -4($1)
+                    add  $11, $5, $10                   beq  $2, $0, Loop
+                    add  $5, $11, $1
+                    sw   $10, 28($11)
+                    sw   $1, 24($5)
+                    beq  $5, $0, Loop
+
+4.29.5  a)  12 / (10 / 2) = 2.4x            b)  8 / (5 / 2) = 3.2x
+
+4.29.6  a)  14 / 9 = 1.6x                   b)  8 / 5 = 1.6x
