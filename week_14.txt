@@ -1,0 +1,33 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 14
+
+5.7.4   a)  0.62 + 0.114 * (70 * 0.98 + 3.22) = 8.81ns (pior)
+        b)  0.96 + 0.043 * (70 * 0.73 + 11.48) = 3.65ns (melhor)
+
+5.7.5   a)  1 + 0.36 * 0.114 * ((70 / 0.62) + 0.98 * (70 / 3.22)) = 6.50ns
+        b)  1 + 0.36 * 0.043 * ((70 / 0.96) + 0.73 * (70 / 11.48)) = 2.20ns
+
+5.7.6   O processador P2 ainda é mais rápido. Taxas de miss menores devem
+        ser testadas.
+
+5.8.1   a)      Set 00      Set 01      Set 10      Set 11
+            W1  00000000    10100010    11010100    10000110
+            W2  10100000    00000010    00101100    N/A
+            W3  00101000    N/A         N/A         N/A
+
+        b)      Set 00      Set 01      Set 10      Set 11
+            W1  01000000    N/A         01010100    00000110
+            W2  01000000    N/A         N/A         11010110
+            W3  01101000    N/A         N/A         10101110
+
+5.8.2   a)  10000111, 11010101, 10100010, 10100001,
+            00000010, 00101100, 00101001, 11011101
+
+        b)  00000110, 11010110, 01000001, 10101110,
+            01000000, 01101001, 01010101, 11010111
+
+5.16.1  a)  {{2, 4}, {3, 4}, {2, 5}, {3, 5}}; um valor errado seria {1, 1}.
+        b)  {{5, 5}, {6, 5}, {5, 2}, {6, 2}}; um valor errado seria {1, 2}.

@@ -1,0 +1,88 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 12
+
+5.2.1   a)  4                               b)  4
+
+5.2.2   a)  i, j, B[j][0]                   b)  i, j
+
+5.2.3   a)  A[i][j]                         b)  A[j][i]
+
+5.2.4   a)  64000 elementos de A            b) 1001 blocos
+                + 8 elementos de B
+                = 64008 / 4 bytes
+                = 16002 / 16 blocos
+                = 1001 blocos
+
+5.2.5   a)  i, j, B(j, 0)                   b)  i, j
+
+5.2.6   a)  A(i, j), A(j, i), B(j, 0)       b)  A(i, j)
+
+5.3.1   a)  Entrada     Tag     Bloco   Hit/Miss
+            00000001    0000    0001    Miss    ----\
+            10000110    1000    0110    Miss        |
+            11010100    1101    0100    Miss        |
+            00000001    0000    0001    Hit     ----/
+            10000111    1000    0111    Miss
+            11010101    1101    0101    Miss
+            10100010    1010    0010    Miss
+            10100001    1010    0001    Miss
+            00000010    0000    0010    Miss
+            00101100    0010    1100    Miss
+            00101001    0010    1001    Miss
+            11011101    1101    1101    Miss
+
+        b)  Entrada     Tag     Bloco   Hit/Miss
+            00000110    0000    0110    Miss
+            11010110    1101    0110    Miss    ----\
+            10101111    1010    1111    Miss        |
+            11010110    1101    0110    Hit     ----/
+            00000110    0000    0110    Miss
+            01010100    0101    0100    Miss
+            01000001    0100    0001    Miss
+            10101110    1010    1110    Miss
+            01000000    0100    0000    Miss
+            01101001    0110    1001    Miss
+            01010101    0101    0101    Miss
+            11010111    1101    0111    Miss
+
+5.3.2   a)  Entrada     Tag     Bloco       Hit/Miss
+            00000001    00000   000 (W1)    Miss    ----\
+            10000110    10000   011 (W1)    Miss    ----|---\
+            11010100    11010   010 (W1)    Miss    ----|---|---\
+            00000001    00000   000 (W1)    Hit     ----/   |   |
+            10000111    10000   011 (W1)    Hit     --------/   |
+            11010101    11010   010 (W1)    Hit     ------------/
+            10100010    10100   001 (W1)    Miss
+            10100001    10100   000 (W2)    Miss
+            00000010    00000   001 (W2)    Miss
+            00101100    00101   110 (W1)    Miss
+            00101001    00101   100 (W1)    Miss
+            11011101    11011   110 (W2)    Miss
+
+        b)  Entrada     Tag     Bloco       Hit/Miss
+            00000110    00000   011 (W1)    Miss
+            11010110    11010   011 (W2)    Miss    ----\
+            10101111    10101   111 (W1)    Miss    ----|-------\
+            11010110    11010   011 (W2)    Hit     ----/       |
+            00000110    00000   011 (W1)    Miss                |
+            01010100    01010   010 (W1)    Miss    --------\   |
+            01000001    01000   000 (W1)    Miss    ----\   |   |
+            10101110    10101   111 (W1)    Hit     ----|---|---/
+            01000000    01000   000 (W1)    Hit     ----/   |
+            01101001    01101   100 (W1)    Miss            |
+            01010101    01010   010 (W1)    Hit     --------/
+            11010111    11010   011 (W2)    Miss
+
+5.3.4   a)  64KB = 2^16 KB / 4 = 2^14 palavras por bloco, então n = 14
+            Tamanho do bloco = 1 = 2^0, então m = 0
+
+            Tamanho = 2^n * (2^m * 32 + 31 - n - m)
+            2^14 * (2^0 * 32 + 31 - 14 - 0) = 2^14 * 49 = 802816 bits
+
+        b)  n = 13, pois existem 2 palavras por bloco, então 2^13 blocos
+            m = 1, pois 2^1 = 2 blocos
+
+            2^13 * (2^1 * 32 + 31 - 13 - 1) = 2^13 * 81 = 663552 bits

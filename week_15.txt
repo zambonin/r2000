@@ -1,0 +1,33 @@
+Resolução de alguns exercícios selecionados de INE5411
+Livro: Computer Organization and Design - The Hardware and Software Interface
+(Patterson, Hennessy, 4ª ed.)
+
+Semana 15
+
+5.10.1  a)  4095 >> 12 = 0      miss                            TLB
+            31272 >> 12 = 7     hit
+            15789 >> 12 = 3     miss                Bit val.    Tag     Número
+            15000 >> 12 = 3     hit                     1        3        6
+            7193 >> 12 = 2      page fault              1        7        4
+            4096 >> 12 = 1      hit                     1        1        13
+            8912 >> 12 = 2      page fault              1        2        14
+
+            Tabela de páginas
+
+            Bit val.   Página ou disco
+                1           5
+                1           13
+                1           14
+                1           6
+                1           9
+                1           11
+                0           Disco
+                1           4
+                0           Disco
+                0           Disco
+                1           12
+
+5.10.4  a)  12 bits de offset, pois o tamanho da página é de 2^12
+            Número de entradas possíveis = 2^32 / 2^12 = 2^20
+            Tamanho da tabela de páginas = 2^20 * 2^2 bytes = 4MB
+            4MB * 5 apps = 20 MB
