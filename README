@@ -1,0 +1,7 @@
+Resolution of exercises selected from the book Computer Organization and
+Design - The Hardware and Software Interface (Patterson, Hennessy, 4ª ed.)
+and divided by weeks according to the course schedule.
+
+Better viewed with a pager. For example:
+
+    less <(cat week_{07..12}.txt)

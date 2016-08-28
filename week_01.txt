@@ -1,9 +1,3 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
-
-Semana 1
-
 1.1     1.1.1   (05) supercomputers         1.1.14  (21) assembler
         1.1.2   (07) petabyte               1.1.15  (25) COBOL
         1.1.3   (03) servers                1.1.16  (19) machine language
@@ -18,14 +12,19 @@ Semana 1
         1.1.12  (02) desktop computers      1.1.25  (22) high-level language
         1.1.13  (15) compiler               1.1.26  (06) terabyte
 
-1.2     1.2.1   8 bits * 3 cores = 24 bits + 8 bits para alinhamento
-                = 32 bits = 4 bytes por pixel
+1.2     1.2.1   8 bits * 3 colors = 24 bits + 8 extra bits for alignment
+                = 32 bits / 8 = 4 bytes per pixel
                 1280 * 800 = 1024000 pixels
-                1024000 * 4 = 4096000 bytes = 4,096 MB
+                1024000 * 4 = 4096000 bytes = 4.096 MB
 
-        1.2.2   2 GB / 4.096 = 488,28125 camadas
+        1.2.2   2 GB = 2048 MB / 4.096 MB = 500 frames
 
-        1.2.3   1Gb = 125MB     256KB = 0,256MB
-                0,256 / 125 = 0,002048 s = 2,048 * 10^-3 s = 2,048 ms
+        1.2.3   1 Gb = 125 MB
+                256 KB = 0.25 MB
+                0.25 / 125 = 0,002 s = 2 * 10^-3 s = 2 ms
 
-        1.2.4   2 μs p/ cache   20 μs p/ DRAM   2 s p/ disco    2 ms p/ flash
+        1.2.4   2  μs for cache
+                20 μs for DRAM
+                2  s  for magnetic disk
+                2  ms for flash
+
