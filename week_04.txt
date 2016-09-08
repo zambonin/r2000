@@ -1,40 +1,46 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
+2.9.1   a)  yes                 b)  no
 
-Semana 4
+2.9.2   a)  no                  b)  no
 
-2.24.1  a)  0x12                            b)  0x12ffffff
+2.9.4   a)  no                  b)  no
 
-2.25.1  a)  1010110100010000_2 = 0xad1      b)  1111111111111111_2 = 0xffff
-            lui  $t1, 0xad1                     lui  $t1, 0xffff
-            ori  $t1, $t1, 0                    ori  $t1, $t1, 0xffff
-
-2.25.2  Desvios incondicionais alcançam endereços de até 28 bits (26 bits * 4
-        para alinhamento), ou seja, o maior endereço possível é PC + 0xffffffc.
-        Ambos os endereços propostos são de maior ordem que este limite.
-
-        Neste exercício, como PC = 0x0, então o limite é de 0xffffffc.
-
-        a)  desvio impossível               b)  desvio impossível
-
-2.25.3  Desvios condicionais alcançam endereços de até 16 bits sinalizados.
-        Porém, estes são multiplicados por 4 por conta do alinhamento de
-        palavras. Então, o limite máximo de um desvio deste tipo é de
-        PC + 0x1fffc. De modo similar, o limite mínimo é de PC - 0x20000.
-
-        Neste exercício, o limite máximo é 0x604 + 0x1fffc = 0x20600, e o
-        limite mínimo, 0x604 - 0x20000 = 0xfffe604.
-
-        a)  desvio impossível               b)  desvio possível
-
-2.25.6  a)  0x12345678                      b)  0x12340000
-
-2.34.1  a)          addi $s0, $zero, 10     b)  sll  $s1, $s2, 28
-            LOOP:                               srl  $s2, $s2, 4
-                    add  $s0, $s0, $s1          or   $s1, $s1, $s2
+2.34.1  a)          addi $s0, $zero, 10
+            LOOP:
+                    add  $s0, $s0, $s1
                     addi $s0, $s0, -1
                     bne  $s0, $zero, LOOP
+
+2.28.2      There is no `R2` register associated with any `sc` instruction.
+
+2.28.3      FIRST:
+                    MOV  R3, R4
+                    LL   R2, 0(R2)
+                    SC   R3, 0(R2)
+                    BEQZ R3, FIRST
+            SECOND:
+                    MOV  R6, R7
+                    LL   R5, 0(R1)
+                    SC   R6, 0(R1)
+                    BEQZ R6, SECOND
+                    MOV  R4, R2
+                    MOV  R7, R5
+
+2.28.4  a)                  P1          mem         P2
+            Cycle       $t1     $t0     $s1     $t1     $t0
+                0       1       2       99      30      40
+                1       99      2       99      99      40
+                2       99      1       2       99      40
+                3       99      1       2       99      0
+
+        b)                  P1              mem             P2
+            Cycle   $s4     $t1     $t0     $s1     $s4     $t1     $s0
+                0   2       3       4       99      10      20      30
+                1   2       3       4       99      10      20      10
+                2   2       3       2       99      10      99      10
+                3   2       99      2       99      10      99      10
+                4   2       99      1       2       10      99      10
+                5   2       99      1       2       10      99      0
+                6   99      99      1       2       10      99      0
 
 2.35.2  a)  r0 = $s0, r1 = $s1
             lw   $s0, 0($s1)
@@ -51,3 +57,4 @@ Semana 4
 2.37.4  b)  EAX = $s0
             lui  $s0, 0x1234
             ori  $s0, $s0, 05678
+
