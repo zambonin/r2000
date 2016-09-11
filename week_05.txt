@@ -1,139 +1,109 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
+1.3.1       P2 > P1 > P3
 
-Semana 5
+            perf(P1) = (2   * 10^9) / 1.5   = 1.33 * 10^9
+            perf(P2) = (1.5 * 10^9) / 1     = 1.5  * 10^9
+            perf(P3) = (3   * 10^9) / 2.5   = 1.2  * 10^9
 
-1.3.1       O processador P2, como pode ser visto abaixo, apresenta melhor
-            desempenho (de acordo com o número de instruções por segundo).
+1.3.2       n_cycles(P1) = 10 * 2   * 10^9  = 2   * 10^10
+            n_cycles(P2) = 10 * 1.5 * 10^9  = 1.5 * 10^10
+            n_cycles(P3) = 10 * 3   * 10^9  = 3   * 10^10
 
-            perf(P1) = (2 * 10^9) / 1.5 = 1.33 * 10^9
-            perf(P2) = (1.5 * 10^9) / 1 = 1.5 * 10^9
-            perf(P3) = (3 * 10^9) / 2.5 = 1.2 * 10^9
+            instr(P1) = (2   * 10^10) / 1.5 = 1.33 * 10^10
+            instr(P2) = (1.5 * 10^10) / 1   = 1.5  * 10^10
+            instr(P3) = (3   * 10^10) / 2.5 = 1.2  * 10^10
 
-1.3.2       nCiclos(P1) = 10 * 2 * 10^9 = 2 * 10^10
-            nCiclos(P2) = 10 * 1.5 * 10^ 9 = 1.5 * 10^10
-            nCiclos(P3) = 10 * 3 * 10^9 = 3 * 10^10
+1.3.4       f(P1) = 1.33 * 10^10 * (1.5 * 1.2) / 7 = 3.42  * 10^9 = 3.42 GHz
+            f(P2) = 1.5  * 10^10 * (1   * 1.2) / 7 ≈ 2.571 * 10^9 ≈ 2.57 GHz
+            f(P3) = 1.2  * 10^10 * (2.5 * 1.2) / 7 ≈ 5.142 * 10^9 ≈ 5.14 GHz
 
-            instr(P1) = (2 * 10^10) / 1.5 = 1.33 * 10^10 instruções
-            instr(P2) = (1.5 * 10^10) / 1 = 1.5 * 10^10 instruções
-            instr(P3) = (3 * 10^10) / 2.5 = 1.2 * 10^10 instruções
+1.4.1       P2 > P1
 
-1.3.4       f(P1) = 1.33 * 10^10 * (1.5 * 1.2) / 7 = 3.42 * 10^9 = 3.42 GHz
-            f(P2) = 1.5 * 10^10 * (1 * 1.2) / 7 ≈ 2.571 * 10^9 ≈ 2.57 GHz
-            f(P3) = 1.2 * 10^10 * (2.5 * 1.2) / 7 ≈ 5.142 * 10^9 ≈ 5.14 GHz
+            avg_cpi(P1) = (1 * 0.1) + (2 * 0.2) + (3 * 0.5) + (4 * 0.2) = 2.8
+            t(P1) = (1 * 10^6 * 2.8) / (1.5 * 10^9) ≈ 1.866 * 10^(-4) s
+            avg_cpi(P2) = (2 * 0.1) + (2 * 0.2) + (2 * 0.5) + (2 * 0.2) = 2
+            t(P2) = (1 * 10^6 * 2) / (2 * 10^9) = 1 * 10^(-3) s
 
-1.4.1       A segunda implementação é mais rápida.
+1.4.2       cpi(P1) = 1.866 * 10^(-4) * 1.5 * 10^9 / 10^6 = 2.8
+            cpi(P2) = 1     * 10^(-3) * 2   * 10^9 / 10^6 = 2
 
-            t(P1) = 1 * 10^6 * ((1 * 0.1) + (2 * 0.2) + (3 * 0.5)
-                        + (4 * 0.2)) / (1.5 * 10^9) ≈ 1.866 * 10^(-4) s
-            t(P2) = 1 * 10^6 * ((2 * 0.1) + (2 * 0.2) + (2 * 0.5)
-                        + (2 * 0.2)) / (2 * 10^9) = 1 * 10^(-3) s
+1.5.1   a)  P1 has a peak performance of 1 * 10^9 instructions/second if only
+            A class instructions are executed.
+            P2 has a peak performance of 7.5 * 10^8 instructions/second if
+            only A, B or C class instructions are executed.
 
-1.4.2       CPI(P1) = 1.866 * 10^(-4) * 1.5 * 10^9 / 10^6 = 2.8
-            CPI(P2) = 1 * 10^(-3) * 2 * 10^9 / 10^6 = 2
+1.6.1   a)  cpi(A) = 1   * 10^9 / 1   * 10^9 = 1
+            cpi(B) = 1.4 * 10^9 / 1.2 * 10^9 ≈ 1.167
 
-1.5.1   a)  P1 pode executar 1 * 10^9 instruções por segundo caso apenas casos
-            da classe A sejam executados.
-            P2 pode executar 7.5 * 10^8 instruções por segundo caso apenas
-            casos das classes A, B ou C sejam executados.
+1.7.2       Between 1997 and 2001, the frequency grew by a factor of ten, and
+            between 1993 and 1997, the power usage grew by a factor of ≈ 2.88.
 
-1.6.1   a)  CPI do compilador A             b)  CPI do compilador B
-            1 * 10^9 / 1 * 10^9 = 1             1.4 * 10^9 / 1.2 * 10^9 ≈ 1.167
-
-1.7.2       A maior mudança entre frequências aconteceu entre o Pentium Pro e
-            o Pentium 4 Willamette (aumento de 10 vezes).
-            A maior mudança no gasto de energia foi entre o Pentium e o
-            Pentium Pro (aumento de ≈ 2.88 vezes).
-
-1.7.3       2.667 * 10^9 / 1.25 * 10^7 = frequência 213.36 vezes maior
-            95 / 3.3 ≈ gasto de energia 28.79 vezes maior
+1.7.3       frequency: 2.667 * 10^9 / 1.25 * 10^7 = 213.36x 
+            power usage: 95 / 3.3 ≈ 28.79x
 
 1.7.4       F = W / (V^2 * Hz)
 
             CPU                     W     V     Hz            F
-
-            80286                   3.3   5     1.25 * 10^7   1.056 * 10^(-8)
-            80386                   4.1   5     1.6 * 10^7    1.025 * 10^(-8)
-            80486                   4.9   5     2.5 * 10^7    7.840 * 10^(-9)
-            Pentium                 10.1  5     6.6 * 10^7    6.121 * 10^(-9)
-            Pentium Pro             29.1  3.3   2 * 10^8      1.336 * 10^(-8)
-            Pentium 4 Willamette    75.3  1.75  2 * 10^9      1.229 * 10^(-8)
-            Pentium 4 Prescott      103   1.25  3.6 * 10^9    1.831 * 10^(-8)
+            80286                   3.3   5     1.25  * 10^7  1.056 * 10^(-8)
+            80386                   4.1   5     1.6   * 10^7  1.025 * 10^(-8)
+            80486                   4.9   5     2.5   * 10^7  7.840 * 10^(-9)
+            Pentium                 10.1  5     6.6   * 10^7  6.121 * 10^(-9)
+            Pentium Pro             29.1  3.3   2     * 10^8  1.336 * 10^(-8)
+            Pentium 4 Willamette    75.3  1.75  2     * 10^9  1.229 * 10^(-8)
+            Pentium 4 Prescott      103   1.25  3.6   * 10^9  1.831 * 10^(-8)
             Core 2 Ketsfield        95    1.1   2.667 * 10^9  2.943 * 10^(-8)
 
-1.8.1       Assumindo que o gasto de energia inicial é de 1 W, então
+1.8.1       Assuming 1 W, then
+            (0.9 / (3.3^2 * 1 * 10^9)) / (1 / (5^2 * 5 * 10^8)) ≈ 1.033x
 
-            (0.9 / (3.3^2 * 1 * 10^9)) / (1 / (5^2 * 5 * 10^8)) ≈ 1.033
-
-1.8.2       Caso a capacitância não mude, então a fórmula torna-se W = V^2 * Hz
-            e portanto
-
-            (3.3^2 * 1 * 10^9) / (5^2 * 5 * 10^8) = 0.8712
+1.8.2       W = V^2 * Hz
+            (3.3^2 * 1 * 10^9) / (5^2 * 5 * 10^8) = 0.8712x
 
 1.9.3   a)  1/49 ≈ 0.0204
 
 1.10.2  a)  t(C1) = (2560 + 1280 * 4 + 256 * 2) / (2 * 10^9) = 4.096 * 10^(-6) s
-            t(C2) = (1280 + 640 * 4 + 128 * 2) / (2 * 10^9) = 2.048 * 10^(-6) s
-            t(C3) = (640 + 320 * 4 + 64 * 2) / (2 * 10^9) = 1.024 * 10^(-6) s
-            t(C4) = (320 + 160 * 4 + 32 * 2) / (2 * 10^9) = 5.12 * 10^(-7) s
+            t(C2) = (1280 +  640 * 4 + 128 * 2) / (2 * 10^9) = 2.048 * 10^(-6) s
+            t(C3) = (640  +  320 * 4 + 64  * 2) / (2 * 10^9) = 1.024 * 10^(-6) s
+            t(C4) = (320  +  160 * 4 + 32  * 2) / (2 * 10^9) = 5.12  * 10^(-7) s
 
-1.10.4  a)  t(C1) = (1 * 10^10 * 1.2) / (3 * 10^9) = 4 s
-            t(C2) = (5 * 10^9 * 1.3) / (3 * 10^9) = 2.167 s
-            t(C3) = (2.5 * 10^9 * 1.5) / (3 * 10^9) = 1.25 s
-            t(C4) = (1.25 * 10^9 * 1.8) / (3 * 10^9) = 0.75 s
+1.10.4  a)  t(C1) = (1    * 10^10 * 1.2) / (3 * 10^9) = 4 s
+            t(C2) = (5    * 10^9  * 1.3) / (3 * 10^9) = 2.167 s
+            t(C3) = (2.5  * 10^9  * 1.5) / (3 * 10^9) = 1.25 s
+            t(C4) = (1.25 * 10^9  * 1.8) / (3 * 10^9) = 0.75 s
 
 1.10.5  a)  W = (5.0mA / MHz) * (0.4 + (1/5 * GHz))^2
             W = 5 * F * (0.4 + (1/5 * F))^2
 
-            Núcleos     W @ 3 GHz       W @ 500 MHz
-                1           15              0.625
-                2           30              1.25
-                4           60              2.5
-                8           120             5
+            Cores   W @ 3 GHz  W @ 500 MHz
+              1        15         0.625
+              2        30          1.25
+              4        60           2.5
+              8       120             5
 
-1.10.6  a)  Núcleos     J @ 3 GHz       J @ 500 MHz
-                1           60              15
-                2           65              16.25
-                4           75              18.75
-                8           90              22.5
+1.10.6  a)  Cores   J @ 3 GHz  J @ 500 MHz
+              1        60            15
+              2        65         16.25
+              4        75         18.75
+              8        90          22.5
 
-2.9.1   a)  sim                             b)  não
+1.12.1      clock rate = 1 / (0.333 * 10^(-9)) = 3 GHz = 3 * 10^9
 
-2.9.2   a)  sim                             b)  não
+        a)  3 * 10^9 * (500 / (2118 * 10^9)) ≈ 0.7082
 
-2.9.4   a)  não                             b)  não
+        b)  3 * 10^9 * (1200 / (336 * 10^9)) ≈ 10.7142
 
-2.28.2      A terceira linha de código especifica "R2" na instrução `ll`, que
-            não existe em nenhuma instrução `sc`.
+1.12.2  a)  9770 / 500 = 19.54              b)  9120 / 1200 = 7.6
 
-2.28.3      FIRST:
-                    MOV  R3, R4
-                    MOV  R6, R7
-                    LL   R2, 0(R2)
-                    SC   R3, 0(R2)
-                    BEQZ R3, FIRST
-            SECOND:
-                    LL   R5, 0(R1)
-                    SC   R6, 0(R1)
-                    BEQZ R6, SECOND
-                    MOV  R4, R2
-                    MOV  R7, R5
+1.12.3      (19.54 * 7.6)^(1/2) ≈ 12.1862
 
-2.28.4  a)                  P1          mem         P2
-            Ciclo       $t1     $t0     $s1     $t1     $t0
+1.14.1      Not true:  
 
-                0       1       2       99      30      40
-                1       99      2       99      99      40
-                2       99      1       2       99      40
-                3       99      1       2       99      0
+            T(P1) = (1.25 * 1 * 10^6) / (4 * 10^9) = 0.315 * 10^(-3) s
+            T(P2) = (0.75 * 1 * 10^6) / (3 * 10^9) = 0.25  * 10^(-3) s
 
-        b)                  P1              mem             P2
-            Ciclo   $s4     $t1     $t0     $s1     $s4     $t1     $s0
-                0   2       3       4       99      10      20      30
-                1   2       3       4       99      10      20      10
-                2   2       3       2       99      10      99      10
-                3   2       99      2       99      10      99      10
-                4   2       99      1       2       10      99      10
-                5   2       99      1       2       10      99      0
-                6   99      99      1       2       10      99      0
+1.14.2      T(P1) = (0.75 * N) / (3 * 10^9) → N = 1.26 * 10^6
+
+1.14.3      True in this case:
+
+            MIPS(P1) = (4 * 10^9) * (1 * 10^(-6) / 1.25) = 3200
+            MIPS(P2) = (3 * 10^9) * (1 * 10^(-6) / 0.75) = 4000
+
