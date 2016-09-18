@@ -1,30 +1,61 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
+2.21.1  a)  main:   $ra on 0x7ffffff8 (pop)
+            leaf:   $ra on 0x7ffffff4, $s0 on 0x7ffffff0 (first call)
+                    $ra on 0x7fffffec, $s0 on 0x7fffffe8 (first recursion)
+                    $ra on 0x7fffffe4, $s0 on 0x7fffffe0 (second recursion)
+                    $ra on 0x7fffffdc, $s0 on 0x7fffffd8 (third recursion)
+                    $ra on 0x7fffffd4, $s0 on 0x7fffffd0 (last recursion, pop)
 
-Semana 6
+        b)  main:   $ra on 0x7ffffff8 (pop), 100 on 0x10000000 (static)
 
-1.12.1      clock rate = 1 / (0.333 * 10^(-9)) = 3 GHz = 3 * 10^9
+2.21.2  a)  MAIN:                           b)  MAIN:
+                    addi $sp, $sp, -4                   addi $sp, $sp, -4
+                    sw   $ra, 0($sp)                    sw   $ra, 0($sp)
+                    addi $a0, $zero, 1                  addi $a0, $zero, 10
+                    jal  LEAF                           addi $t0, $zero, 20
+                    lw   $ra, 0($sp)                    addi $s0, $zero, 100
+                    addi $sp, $sp, 4                    add  $a1, $s0, $zero
+                    jr   $ra                            jal  LEAF
+            LEAF:                                       lw   $ra, 0($sp)
+                    addi $sp, $sp, -8                   addi $sp, $sp, 4
+                    sw   $ra, 4($sp)                    jr   $ra
+                    sw   $s0, 0($sp)            LEAF:
+                    add  $s0, $a0, 1                    sub  $v0, $a0, $a1
+                    slti $t0, $s0, 6                    jr   $ra
+                    beq  $t0, $zero, DONE
+                    add  $a0, $s0, $zero
+                    jal  LEAF
+            DONE:
+                    add  $v0, $s0, $zero
+                    lw   $s0, 0($sp)
+                    lw   $ra, 4($sp)
+                    addi $sp, $sp, 8
+                    jr   $ra
 
-        a)  3 * 10^9 * (500 / (2118 * 10^9)) ≈ 0.7082
+2.30.1  a)  add  $t1, $zero, $t2            b)  addi $t0, $zero, small
+                                                beq  $t1, $t0, LOOP
 
-        b)  3 * 10^9 * (1200 / (336 * 10^9)) ≈ 10.7142
+2.31.1  a)  text    address     instruction
+            segment 0x400000    lw   $a0, 0x8000($gp)
+                    0x400004    jal  0x100050
+                    ...         ...
+                    0x400140    sw   $a1, 0x8040($gp)
+                    0x400144    jal  0x100000
 
-1.12.2  a)  9770 / 500 = 19.54              b)  9120 / 1200 = 7.6
+            data    0x10000000  (X)
+            segment ...         ...
+                    0x10000040  (Y)
 
-1.12.3      (19.54 * 7.6)^(1/2) ≈ 12.1862
+        b)  data    address     instruction
+            segment 0x400000    lui  $at, 0x1000
+                    0x400004    ori  $a0, $at, 0
+                    0x400008    jal  0x100050
+                    ...         ...
+                    0x400140    sw   $a0, 8040($gp)
+                    0x400144    jmp  0x1000b0
+                    ...         ...
+                    0x4002c0    jr   $ra
 
-1.14.1      Isto não acontece neste caso, pois é possível verificar que o
-            segundo processador executa instruções mais rapidamente, mesmo
-            com sua frequência reduzida:
+            data    0x10000000  (X)
+            segment ...         ...
+                    0x10000040  (Y)
 
-            T(P1) = (1.25 * 1 * 10^6) / (4 * 10^9) = 0.315 * 10^(-3) segundos
-            T(P2) = (0.75 * 1 * 10^6) / (3 * 10^9) = 0.25 * 10^(-3) segundos
-
-1.14.2      0.315 * 10^(-3) = (0.75 * N) / (3 * 10^9) → N = 1.26 * 10^6
-
-1.14.3      Neste caso, esta asserção procede, pois no cálculo do MIPS é
-            possível verificar que o segundo processador tem este índice maior:
-
-            MIPS(P1) = (4 * 10^9) * (1 * 10^(-6) / 1.25) = 3200
-            MIPS(P2) = (3 * 10^9) * (1 * 10^(-6) / 0.75) = 4000
