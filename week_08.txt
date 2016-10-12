@@ -1,0 +1,129 @@
+4.12.1  a)  with pipeline:      1650ps
+            without pipeline:   500ps
+
+4.12.2  a)  with pipeline:      1650ps
+            without pipeline:   2500ps
+
+4.12.3  a)  the MEM stage; the new clock cycle time would be 400ps
+
+4.13.2  a)  lw  $1, 40($6)                  b)  lw  $5, -16($5)
+            add $6, $2, $2                      nop
+            nop                                 nop
+            sw  $6, 50($1)                      sw  $5, -16($5)
+                                                add $5, $5, $5
+            (data hazard)                       (data hazard)
+
+4.13.3  a)  lw  $1, 40($6)                  b)  lw  $5, -16($5)
+            add $6, $2, $2                      nop
+            sw  $6, 50($1)                      sw  $5, -16($5)
+                                                add $5, $5, $5
+                                                (data hazard)
+
+4.13.4      w/o forwarding      w/ forwarding       speed-up
+
+        a)  (7 + 1) * 300       7 * 400
+            = 2400ps            = 2800ps            2400 / 2800 = 0.86
+
+        b)  (7 + 2) * 200       (7 + 1) * 250
+            = 1800ps            = 2000ps            1800 / 2000 = 0.90
+
+4.13.5      the code would not benefit from ALU-ALU forwarding
+
+4.13.6      w/o forwarding      w/ ALU-ALU          speed-up
+
+        a)  (7 + 1) * 300       (7 + 1) * 360
+            = 2400ps            = 2880ps            2400 / 2880 = 0.83
+
+        b)  (7 + 2) * 200       (7 + 2) * 220
+            = 1800ps            = 1980ps            1800 / 1980 = 0.91
+
+4.14.1      nop instructions are fetched like any other instruction, ergo, the
+            hardware would need to be modified to solve the structural hazard
+
+            ME and IF shall not be on the same stage of the pipeline
+
+        a)  IF  ID  EX  ME  WB                                  lw  $1, 40($6)
+                IF  ID  EX  ME  WB                              beq $2, $0, L
+                    IF  ID  EX  ME  WB                      L:  add $2, $3, $4
+                        **  IF  ID  EX  ME  WB                  sw  $3, 50($4)
+
+        b)  IF  ID  EX  ME  WB                                  lw  $5, -16($5)
+                IF  ID  EX  ME  WB                              sw  $4, -16($4)
+                    IF  ID  EX  ME  WB                          lw  $3, -20($4)
+                        **  **  **  IF  ID  EX  ME  WB          beq $2, $0, L
+                                        IF  ID  EX  ME  WB      add $5, $1, $4
+
+4.14.2  a)  IF  ID  XM  WB              speed-up of 8/7 = 1.29x
+                IF  ID  XM  WB
+                    IF  ID  XM  WB
+                        IF  ID  XM  WB
+
+        b)  IF  ID  XM  WB              speed-up of 9/8 = 1.33x
+                IF  ID  XM  WB
+                    IF  ID  XM  WB
+                        IF  ID  XM  WB
+                            IF  ID  XM  WB
+
+4.14.3  a)  IF  ID  EX  ME  WB                      branch determined on ID
+                IF  ID  EX  ME  WB
+                    **  IF  ID  EX  ME  WB
+                            IF  ID  EX  ME  WB
+
+            IF  ID  EX  ME  WB                      branch determined on EX
+                IF  ID  EX  ME  WB
+                    **  **  IF  ID  EX  ME  WB
+                                IF  ID  EX  ME  WB
+
+            speed-up of 10/9 ≈ 1.11x
+
+        b)  IF  ID  EX  ME  WB                      branch determined on ID
+                IF  ID  EX  ME  WB
+                    IF  ID  EX  ME  WB
+                        IF  ID  EX  ME  WB
+                            **  IF  ID  EX  ME  WB
+
+            IF  ID  EX  ME  WB                      branch determined on EX
+                IF  ID  EX  ME  WB
+                    IF  ID  EX  ME  WB
+                        IF  ID  EX  ME  WB
+                            **  **  IF  ID  EX  ME  WB
+
+            speed-up of 11/10 = 1.1x
+
+4.14.4  a)  (8 * 130) / (7 * 150) ≈ 0.9x
+
+        b)  (9 * 220) / (8 * 240) ≈ 1.03x
+
+4.14.5  a)  (10 * 130) / (9 * 180) ≈ 0.8x
+
+        b)  (11 * 220) / (10 * 220) = 1.1x
+
+4.14.6      the change would add a stall on each conditional branch; MEM still
+            takes the most time so the latency changes can be discarded
+
+        a)  10 / 11 ≈ 0.91x                 b)  11 / 12 ≈ 0.92x
+
+4.16.4  a)  2nd cycle:  add $5, $5, $8      WB
+            2nd cycle:  add $6, $6, $8      ME  WB
+            2nd cycle:  sw  $1, 20($5)      EX  ME  WB
+            2nd cycle:  beq $1, $0, Loop    IF  EX  ME  WB
+            3rd cycle:  lw  $1, 40($6)      IF  ID  EX  ME  WB
+            3rd cycle:  add $5, $5, $8          IF  ID  EX  ME
+            3rd cycle:  add $6, $6, $8              IF  ID  EX
+            3rd cycle:  sw  $1, 20($5)                  IF  ID
+            3rd cycle:  lw  $1, $0, Loop                    IF
+
+        b)  2nd cycle:  sw  $0, 0($1)       WB
+            2nd cycle:  sw  $0, 4($1)       ME  WB
+            2nd cycle:  add $2, $2, $4      EX  ME  WB
+            2nd cycle:  beq $2, $0, Loop    IF  EX  ME  WB
+            3rd cycle:  add $1, $2, $3      IF  ID  EX  ME  WB
+            3rd cycle:  sw  $0, 0($1)           IF  ID  EX  ME
+            3rd cycle:  sw  $0, 4($1)               IF  ID  EX
+            3rd cycle:  add $2, $2, $4                  IF  ID
+            3rd cycle:  lw  $2, $0, Loop                    IF
+
+4.16.5  check which columns have instructions using WB and ME
+
+        a)  20%                             b)  40%
+

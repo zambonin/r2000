@@ -1,19 +1,126 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
+4.29.4  a)  LOOP:
+				lw   $1, 40($6)
+				add  $5, $5, $1
+				sw   $1, 20($5)
+				addi $6, $6, 4
+				addi $5, $5, -4
+				beq  $5, $0, LOOP
 
-Semana 10
+            duplicate instructions
 
-4.29.4  a)  Loop:   lw   $10, 40($6)        b)  Loop:   add  $1, $2, $3
-                    lw   $1, 44($6)                     addi $2, $2, 8
-                    addi $6, $6, 8                      sw   $0, -8($1)
-                    addi $5, $5, -8                     sw   $0, -4($1)
-                    add  $11, $5, $10                   beq  $2, $0, Loop
-                    add  $5, $11, $1
-                    sw   $10, 28($11)
-                    sw   $1, 24($5)
-                    beq  $5, $0, Loop
+            2LOOP:
+                lw   $1, 40($6)
+                add  $5, $5, $1
+                sw   $1, 20($5)
+                addi $6, $6, 4
+                addi $5, $5, -4
+                beq  $5, $0, 2LOOP
+                lw   $1, 40($6)
+                add  $5, $5, $1
+                sw   $1, 20($5)
+                addi $6, $6, 4
+                addi $5, $5, -4
+                beq  $5, $0, 2LOOP
 
-4.29.5  a)  12 / (10 / 2) = 2.4x            b)  8 / (5 / 2) = 3.2x
+            remove useless instructions
 
-4.29.6  a)  14 / 9 = 1.6x                   b)  8 / 5 = 1.6x
+            2LOOP:
+                lw   $1, 40($6)
+                add  $5, $5, $1
+                sw   $1, 20($5)
+                lw   $1, 40($6)
+                add  $5, $5, $1
+                sw   $1, 20($5)
+                addi $6, $6, 8
+                addi $5, $5, -8
+                beq  $5, $0, 2LOOP
+
+            code scheduling and register renaming
+
+            2LOOP:
+                lw   $10, 40($6)
+                lw   $1, 40($6)
+                addi $6, $6, 8
+                addi $5, $5, -8
+                add  $11, $5, $10
+                add  $5, $11, $1
+                sw   $10, 20($11)
+                sw   $1, 20($5)
+                beq  $5, $0, 2LOOP
+
+            offset compensation
+
+            2LOOP:
+                lw   $10, 40($6)
+                lw   $1, 44($6)
+                addi $6, $6, 8
+                addi $5, $5, -8
+                add  $11, $5, $10
+                add  $5, $11, $1
+                sw   $10, 28($11)
+                sw   $1, 24($5)
+                beq  $5, $0, 2LOOP
+
+            2-issue
+
+            lw   $10, 40($6)    lw   $1, 44($6)
+            addi $6, $6, 8      addi $5, $5, -8
+            add  $11, $5, $10   nop
+            add  $5, $11, $1    sw   $10, 28($11)
+            sw   $1, 24($5)     beq  $5, $0, 2LOOP
+
+        b)  LOOP:
+                add  $1, $2, $3
+                sw   $0, 0($1)
+                addi $2, $2, 4
+                beq  $2, $0, LOOP
+
+            duplicate instructions
+
+            2LOOP:
+                add  $1, $2, $3
+                sw   $0, 0($1)
+                addi $2, $2, 4
+                beq  $2, $0, 2LOOP
+                add  $1, $2, $3
+                sw   $0, 0($1)
+                addi $2, $2, 4
+                beq  $2, $0, 2LOOP
+
+            remove useless instructions
+
+            2LOOP:
+                add  $1, $2, $3
+                sw   $0, 0($1)
+                sw   $0, 0($1)
+                addi $2, $2, 8
+                beq  $2, $0, 2LOOP
+
+            code scheduling
+
+            2LOOP:
+                add  $1, $2, $3
+                addi $2, $2, 8
+                sw   $0, 0($1)
+                sw   $0, 0($1)
+                beq  $2, $0, 2LOOP
+
+            offset compensation
+
+            2LOOP:
+                add  $1, $2, $3
+                addi $2, $2, 8
+                sw   $0, -8($1)
+                sw   $0, -4($1)
+                beq  $2, $0, 2LOOP
+
+            2-issue
+
+            add  $1, $2, $3     addi $2, $2, 8
+            sw   $0, -8($1)     sw   $0, -4($1)
+            beq  $2, $0, 2LOOP  nop
+
+4.29.5  a)  12 / 5 = 2.4x                   b)  8 / 3 = 2.6x
+
+4.29.6  a)  12 / 9 = 1.3x                   b)  8 / 5 = 1.6x
+
