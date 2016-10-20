@@ -1,9 +1,3 @@
-Resolução de alguns exercícios selecionados de INE5411
-Livro: Computer Organization and Design - The Hardware and Software Interface
-(Patterson, Hennessy, 4ª ed.)
-
-Semana 12
-
 5.2.1   a)  4                               b)  4
 
 5.2.2   a)  i, j, B[j][0]                   b)  i, j
@@ -86,3 +80,58 @@ Semana 12
             m = 1, pois 2^1 = 2 blocos
 
             2^13 * (2^1 * 32 + 31 - 13 - 1) = 2^13 * 81 = 663552 bits
+
+5.4.1   a)  4 bits no offset, então 2^4 / 4 = 4
+        b)  5 bits no offset, então 2^5 / 4 = 8
+
+5.4.2   a)  6 bits no index, então 2^6 = 64
+        b)  7 bits no index, então 2^7 = 128
+
+5.4.3   a)  (2^5 * (16*8 + 22 + 1)) / (2^5 * (16*8)) = 151/128
+        b)  (2^5 * (32*8 + 20 + 1)) / (2^5 * (32*8)) = 277/256
+
+5.4.4   Endereço no bloco = floor(endereço real / tamanho do bloco em bytes)
+        Índice do bloco = endereço do bloco (mod quantidade de blocos)
+
+        a)  Entrada     Endereço    Índice    Hit/Miss    Subst.
+            0           0           0           Miss        N
+            4           0           0           Hit         N
+            16          1           1           Miss        N
+            132         8           8           Miss        N
+            232         14          14          Miss        N
+            160         10          10          Miss        N
+            1024        64          0           Miss        Y
+            30          1           1           Hit         N
+            140         8           8           Hit         N
+            3100        193         1           Miss        Y
+            180         11          11          Miss        N
+            2180        136         8           Miss        Y
+
+        3 blocos diferentes foram substituídos.
+
+        b)  Entrada     Endereço    Índice    Hit/Miss    Subst.
+            0           0           0           Miss        N
+            4           0           0           Hit         N
+            16          0           0           Hit         N
+            132         4           4           Miss        N
+            232         7           7           Miss        N
+            160         5           5           Miss        N
+            1024        32          0           Miss        Y
+            30          0           0           Miss        Y
+            140         4           4           Hit         N
+            3100        96          0           Miss        Y
+            180         5           5           Hit         N
+            2180        68          4           Miss        Y
+
+        2 blocos diferentes foram substituídos.
+
+5.4.5   a)  3/12 = 25%                      b)  4/12 = 33.3%
+
+5.4.6   a)  Índice  Tag     Data            b)  Índice  Tag     Data
+            000001  0001    mem[1024]           000000  0011    mem[3072]
+            000001  0011    mem[16]             000011  0010    mem[2176]
+            001011  0000    mem[176]            000101  0000    mem[160]
+            001000  0010    mem[2176]           000111  0000    mem[224]
+            001110  0000    mem[224]
+            001010  0000    mem[160]
+
